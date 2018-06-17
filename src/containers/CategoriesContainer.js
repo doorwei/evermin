@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -18,14 +20,35 @@ class CategoriesContainer extends Component {
     };
   }
 
+  addNewCategory = (e) => {
+    e.preventDefault();
+    if (this.state.newCategory) {
+      this.setState({
+        categories: [...this.state.categories, this.state.newCategory],
+        newCategory: '',
+      });
+    }
+  }
+
   renderCategories() {
     return (
       <List>
         {this.state.categories.map(category => {
           return (
-            [<Divider />,
+            [<Divider key={`${category}-divider`} />,
             <ListItem key={category}>
-              <ListItemText primary={category} />
+              <ListItemText key="item-text" primary={category} />
+              <IconButton
+                key="remove-icon"
+                aria-label="Delete"
+                onClick={() => {
+                  this.setState({
+                    categories: this.state.categories.filter((comparable) => comparable !== category)
+                  })
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
             </ListItem>]
           );
         })}
@@ -37,6 +60,7 @@ class CategoriesContainer extends Component {
     return (
       <div>
         <form
+          onSubmit={this.addNewCategory}
           style={{
             alignItems: 'baseline',
             display: 'flex',
@@ -55,16 +79,12 @@ class CategoriesContainer extends Component {
               margin="normal"
           />
           <Button
-            variant="raised"
+            variant="contained"
             color="primary"
-            onClick={() => {
-              this.setState({
-                categories: [...this.state.categories, this.state.newCategory],
-                newCategory: '',
-              });
-            }}
+            aria-label="add category"
+            onClick={this.addNewCategory}
           >
-            Add
+            Add Category
           </Button>
         </form>
         {this.renderCategories()}
