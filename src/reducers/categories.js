@@ -1,10 +1,12 @@
 const categories = (state = [], action) => {
   switch(action.type) {
-    case 'ADD_CATEGORY':
+    case 'ADD_NEW_CATEGORY':
       return [
         ...state,
         action.newCategory,
       ]
+    case 'REMOVE_CATEGORY':
+      return state.filter((comparable) => comparable !== action.category);
     default:
       return state
   }

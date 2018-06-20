@@ -10,21 +10,21 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import { connect } from 'react-redux';
 
 class CategoriesContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       newCategory: '',
-      categories: [],
     };
   }
 
   addNewCategory = (e) => {
     e.preventDefault();
     if (this.state.newCategory) {
+      this.props.addNewCategory(this.state.newCategory);
       this.setState({
-        categories: [...this.state.categories, this.state.newCategory],
         newCategory: '',
       });
     }
@@ -33,7 +33,7 @@ class CategoriesContainer extends Component {
   renderCategories() {
     return (
       <List>
-        {this.state.categories.map(category => {
+        {this.props.categories.map(category => {
           return (
             [<Divider key={`${category}-divider`} />,
             <ListItem key={category}>
@@ -42,9 +42,7 @@ class CategoriesContainer extends Component {
                 key="remove-icon"
                 aria-label="Delete"
                 onClick={() => {
-                  this.setState({
-                    categories: this.state.categories.filter((comparable) => comparable !== category)
-                  })
+                  this.props.removeCategory(category);
                 }}
               >
                 <DeleteIcon />
@@ -93,4 +91,22 @@ class CategoriesContainer extends Component {
   }
 }
 
-export default CategoriesContainer;
+const mapStateToProps = state => ({
+  categories: state.categories,
+})
+
+const mapDispatchToProps = dispatch => ({
+  addNewCategory: newCategory => dispatch({
+    type: 'ADD_NEW_CATEGORY',
+    newCategory: newCategory
+  }),
+  removeCategory: category => dispatch({
+    type: 'REMOVE_CATEGORY',
+    category,
+  })
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CategoriesContainer);
