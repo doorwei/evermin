@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -24,11 +26,12 @@ class CreateTaskForm extends Component {
     super(props);
     this.state = {
       taskName: '',
+      taskCategory: '',
     };
   }
 
-  handleChange = () => {
-    console.log('Hello!');
+  handleChange = (e) => {
+    this.setState({ taskCategory: e.target.value });
   }
 
   saveTask = () => {
@@ -54,24 +57,29 @@ class CreateTaskForm extends Component {
           />
         </FormControl>
 
+        {this.props.categories.length > 0 &&
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="age-simple">Select Category:</InputLabel>
           <Select
-            value="10"
+            value={this.state.taskCategory}
             onChange={this.handleChange}
             inputProps={{
               name: 'category',
               id: 'task-category',
             }}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {this.props.categories.map(category => {
+              return (
+                <MenuItem
+                  key={category}
+                  value={category}
+                >
+                  {category}
+                </MenuItem>
+              )
+            })}
           </Select>
-        </FormControl>
+        </FormControl>}
 
         <FormControl className={classes.formControl}>
           <TextField
@@ -112,4 +120,16 @@ class CreateTaskForm extends Component {
   }
 }
 
-export default withStyles(styles)(CreateTaskForm);
+const mapStateToProps = state => ({
+  categories: state.categories,
+})
+
+const mapDispatchToProps = dispatch => ({
+
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(CreateTaskForm));
+// export default withStyles(styles)(CreateTaskForm);
