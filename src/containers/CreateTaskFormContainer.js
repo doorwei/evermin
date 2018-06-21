@@ -22,7 +22,7 @@ const styles = theme => ({
   },
 });
 
-class CreateTaskForm extends Component {
+class CreateTaskFormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -167,4 +167,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(CreateTaskForm));
+)(withStyles(styles)(CreateTaskFormContainer));

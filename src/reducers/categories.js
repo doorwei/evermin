@@ -1,4 +1,4 @@
-const categories = (state = [], action) => {
+const categories = (state = ['work', 'play', 'sleep'], action) => {
   switch(action.type) {
     case 'ADD_NEW_CATEGORY':
       return [

@@ -5,7 +5,7 @@ import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 
-import CreateTaskForm from './CreateTaskForm';
+import CreateTaskFormContainer from '../containers/CreateTaskFormContainer';
 
 function getModalStyle() {
   const top = 50;
@@ -51,7 +51,7 @@ class CreateTaskModal extends Component {
         onClose={this.handleClose}
       >
         <div style={getModalStyle()} className={classes.paper}>
-          <CreateTaskForm
+          <CreateTaskFormContainer
             cancelTask={this.handleClose}
           />
         </div>

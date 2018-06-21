@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import Task from '../components/Task';
 
 class CategoriesContainer extends Component {
   constructor(props) {
@@ -33,10 +33,23 @@ class CategoriesContainer extends Component {
     return (
       <List>
         {this.props.categories.map(category => {
+          const categoryTasks = this.props.tasks.filter(task => task.category === category);
+          console.log(category, categoryTasks);
           return (
             [<Divider key={`${category}-divider`} />,
             <ListItem key={category}>
               <ListItemText key="item-text" primary={category} />
+              <List>
+                {categoryTasks.map(task => {
+                  return (
+                    <ListItem key={task.name}>
+                      <Task
+                        task={task}
+                      />
+                    </ListItem>
+                  );
+                })}
+              </List>
               <IconButton
                 key="remove-icon"
                 aria-label="Delete"
