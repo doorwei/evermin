@@ -92,17 +92,22 @@ class CategoriesContainer extends Component {
 
 const mapStateToProps = state => ({
   categories: state.categories,
+  tasks: state.tasks,
 })
 
 const mapDispatchToProps = dispatch => ({
   addNewCategory: newCategory => dispatch({
     type: 'ADD_NEW_CATEGORY',
-    newCategory: newCategory
+    newCategory
   }),
   removeCategory: category => dispatch({
     type: 'REMOVE_CATEGORY',
     category,
-  })
+  }),
+  removeTask: task => dispatch({
+    type: 'REMOVE_TASK',
+    task,
+  }),
 })
 
 export default connect(

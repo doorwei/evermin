@@ -8,11 +8,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120,
+    minWidth: 150,
   },
   formActions: {
     display: 'flex',
@@ -27,6 +28,8 @@ class CreateTaskForm extends Component {
     this.state = {
       taskName: '',
       taskCategory: '',
+      taskStartTime: '',
+      taskEndTime: '',
     };
   }
 
@@ -35,7 +38,9 @@ class CreateTaskForm extends Component {
   }
 
   saveTask = () => {
-    console.log('save task');
+    this.props.addNewTask({
+      ...this.state,
+    });
   }
 
   render() {
@@ -59,7 +64,7 @@ class CreateTaskForm extends Component {
 
         {this.props.categories.length > 0 &&
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="age-simple">Select Category:</InputLabel>
+          <InputLabel htmlFor="age-simple">Category</InputLabel>
           <Select
             value={this.state.taskCategory}
             onChange={this.handleChange}
@@ -81,21 +86,49 @@ class CreateTaskForm extends Component {
           </Select>
         </FormControl>}
 
-        <FormControl className={classes.formControl}>
-          <TextField
-            id="time"
-            label="Alarm clock"
-            type="time"
-            defaultValue="07:30"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            inputProps={{
-              step: 300, // 5 min
-            }}
-          />
-        </FormControl>
+        <div>
+          <FormControl className={classes.formControl}>
+            <TextField
+              id="time-start"
+              label="Start"
+              type="time"
+              defaultValue={this.state.taskStateTime}
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+              onChange={(e) => {
+                this.setState({
+                  taskStartTime: e.target.value,
+                });
+              }}
+            />
+          </FormControl>
+
+          <FormControl className={classes.formControl}>
+            <TextField
+              id="time-end"
+              label="End"
+              type="time"
+              defaultValue={this.state.taskEndTime}
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+              onChange={(e) => {
+                this.setState({
+                  taskEndTime: e.target.value,
+                });
+              }}
+            />
+          </FormControl>
+        </div>
 
         <div className={classes.formActions}>
           <Button
@@ -125,11 +158,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-
+  addNewTask: newTask => dispatch({
+    type: 'ADD_NEW_TASK',
+    newTask,
+  }),
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(CreateTaskForm));
-// export default withStyles(styles)(CreateTaskForm);
