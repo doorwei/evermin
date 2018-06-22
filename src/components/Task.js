@@ -18,9 +18,12 @@ class Task extends Component {
   }
 
   render() {
+    const { task } = this.props;
+
     return (
       <div>
-        {this.props.task.name}
+        {task.name}
+        {task.startTime} - {task.endTime} ({task.durationTime})
       </div>
     );
   }

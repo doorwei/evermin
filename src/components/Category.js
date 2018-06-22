@@ -10,6 +10,8 @@ import Delete from '@material-ui/icons/Delete';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+import moment from 'moment';
+
 import Task from './Task';
 
 class Category extends Component {
@@ -32,10 +34,28 @@ class Category extends Component {
       tasks,
       removeCategory
     } = this.props;
+
+    let categoryDurationTime = 0;
+    const tasksList = (
+      <List>
+        {tasks.map(task => {
+          const durationTimeInMillis = task.endTime - task.startTime;
+          const durationTime = moment.duration().humanize();
+          categoryDurationTime += durationTimeInMillis;
+          return (
+            <ListItem key={task.name}>
+              <Task
+                task={ {...task, durationTime } }
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+    );
     return (
       [
         <ListItem key={category}>
-          <ListItemText key="item-text" primary={category} />
+          <ListItemText key="item-text" primary={`${category} (${moment.duration(categoryDurationTime).humanize()})`} />
           <IconButton
             key="remove-icon"
             aria-label="Delete"
@@ -56,17 +76,7 @@ class Category extends Component {
           </IconButton>
         </ListItem>,
         <Collapse in={this.state.isExpanded} timeout="auto" unmountOnExit>
-          <List>
-            {tasks.map(task => {
-              return (
-                <ListItem key={task.name}>
-                  <Task
-                    task={task}
-                  />
-                </ListItem>
-              );
-            })}
-          </List>
+          {tasksList}
         </Collapse>
       ]
     )
