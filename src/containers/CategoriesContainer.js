@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
+import Category from '../components/Category';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
-
-
-import Category from '../components/Category';
-
-import Collapse from '@material-ui/core/Collapse';
 
 class CategoriesContainer extends Component {
   constructor(props) {
@@ -38,6 +34,7 @@ class CategoriesContainer extends Component {
             [
               <Divider key={`${category}-divider`} />,
               <Category
+                key={`${category}-category`}
                 category={category}
                 tasks={categoryTasks}
                 removeCategory={this.props.removeCategory}

@@ -1,16 +1,14 @@
+import moment from 'moment';
 import React, { Component } from 'react';
 
 import Collapse from '@material-ui/core/Collapse';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-
 import Delete from '@material-ui/icons/Delete';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
-import moment from 'moment';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import Task from './Task';
 
@@ -54,13 +52,13 @@ class Category extends Component {
     );
     return (
       [
-        <ListItem key={category}>
+        <ListItem key={`${category}-listItem`}>
           <ListItemText key="item-text" primary={`${category} (${moment.duration(categoryDurationTime).humanize()})`} />
           <IconButton
             key="remove-icon"
             aria-label="Delete"
             onClick={() => {
-              this.props.removeCategory(category);
+              removeCategory(category);
             }}
           >
             <Delete />
@@ -75,7 +73,12 @@ class Category extends Component {
             { this.state.isExpanded ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
         </ListItem>,
-        <Collapse in={this.state.isExpanded} timeout="auto" unmountOnExit>
+        <Collapse
+          in={this.state.isExpanded}
+          timeout="auto"
+          unmountOnExit
+          key={`${category}-collapse`}
+        >
           {tasksList}
         </Collapse>
       ]

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
+import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
 
 import CreateTaskFormContainer from '../containers/CreateTaskFormContainer';
 
