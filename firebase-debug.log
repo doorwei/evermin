@@ -1,0 +1,41 @@
+[debug] [2018-06-27T13:43:03.904Z] ----------------------------------------------------------------------
+[debug] [2018-06-27T13:43:03.908Z] Command:       /Users/chuwei/.nvm/versions/node/v6.11.5/bin/node /Users/chuwei/.nvm/versions/node/v6.11.5/bin/firebase serve
+[debug] [2018-06-27T13:43:03.910Z] CLI Version:   3.19.1
+[debug] [2018-06-27T13:43:03.910Z] Platform:      darwin
+[debug] [2018-06-27T13:43:03.910Z] Node Version:  v6.11.5
+[debug] [2018-06-27T13:43:03.912Z] Time:          Wed Jun 27 2018 06:43:03 GMT-0700 (PDT)
+[debug] [2018-06-27T13:43:03.912Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-06-27T13:43:03.928Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-06-27T13:43:03.929Z] > authorizing via signed-in user
+[debug] [2018-06-27T13:43:03.932Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/evermin-firebase  
+  
+ Wed Jun 27 2018 06:43:03 GMT-0700 (PDT)
+[debug] [2018-06-27T13:43:04.408Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-27T13:43:04.409Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/evermin-firebase/tokens  
+  
+ Wed Jun 27 2018 06:43:04 GMT-0700 (PDT)
+[debug] [2018-06-27T13:43:05.186Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-27T13:43:05.187Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/evermin-firebase  
+  
+ Wed Jun 27 2018 06:43:05 GMT-0700 (PDT)
+[debug] [2018-06-27T13:43:05.412Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/chuwei/workspace/evermin'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-06-27T13:43:06.016Z] Fetching environment
+[debug] [2018-06-27T13:43:06.018Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/132834061455:getServerAppConfig  
+  
+ Wed Jun 27 2018 06:43:06 GMT-0700 (PDT)
+[debug] [2018-06-27T13:43:06.019Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/132834061455/clients/_:getWebAppConfig  
+  
+ Wed Jun 27 2018 06:43:06 GMT-0700 (PDT)
+[debug] [2018-06-27T13:43:06.414Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-27T13:43:06.415Z] Starting @google-cloud/functions-emulator
+[debug] [2018-06-27T13:43:06.437Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[debug] [2018-06-27T13:43:07.961Z] Parsing function triggers
+[info] i  functions: No HTTPS functions found. Use firebase functions:shell if you would like to emulate other types of functions.
