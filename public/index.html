@@ -15,6 +15,10 @@
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
 
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+
+
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
       #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
@@ -31,15 +35,10 @@
     </style>
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
+     <div id="firebaseui-auth-container"></div>
     <p id="load">Firebase SDK Loading&hellip;</p>
-
     <script>
+      var CLIENT_ID='377895320447-bpcs8u87d3m1lger3a315amkvrmv24vm.apps.googleusercontent.com';
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
@@ -53,6 +52,36 @@
 
         try {
           let app = firebase.app();
+          // FirebaseUI config.
+          var uiConfig = {
+            callbacks: {
+              signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                console.log('success: ', authResult);
+                return false;
+              },
+              signInFailure: function(error) {
+                console.log('failure: ', error);
+              }
+            },
+            signInSuccessUrl: '/',
+            signInOptions: [
+              // Leave the lines as is for the providers you want to offer your users.
+              {
+                provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                authMethod: 'https://accounts.google.com',
+                clientId: CLIENT_ID
+              }
+            ],
+            // Terms of service url.
+            tosUrl: '<your-tos-url>',
+            credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+          };
+
+          // Initialize the FirebaseUI Widget using Firebase.
+          var ui = new firebaseui.auth.AuthUI(firebase.auth());
+          // The start method will wait until the DOM is loaded.
+          ui.start('#firebaseui-auth-container', uiConfig);
+
           let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
           document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
         } catch (e) {
